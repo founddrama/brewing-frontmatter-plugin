@@ -1,4 +1,16 @@
-/* Sets all the text color to red! */
-body {
-    color: red;
+.bjcp-stats-table {
+  width: 100%;
+  text-align: center;
+}
+
+.bjcp-stats-cell {
+  width: 33%;
+}
+
+.bjcp-stats-cell:nth-of-type(2) {
+  width: 34%;
+}
+
+.bjcp-stats-beer-cell {
+  width: 20%;
 }
