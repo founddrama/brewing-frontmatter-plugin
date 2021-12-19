@@ -10,11 +10,13 @@ class ArticleFrontMatter extends React.PureComponent<ArticleFrontMatterProps> {
   }
 
   renderSource() {
-    const { source } = this.props;
-    if (source) {
+    const { source, sourceUrl } = this.props;
+    console.log('source => ', source);
+    console.log('sourceUrl => ', sourceUrl);
+    if (source || sourceUrl) {
       return (
         <>
-          in <a href={source}>{this.renderPublication()}</a>
+          in <a href={source || sourceUrl}>{this.renderPublication()}</a>
         </>
       );
     } else {

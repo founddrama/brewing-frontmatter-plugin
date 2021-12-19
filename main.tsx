@@ -17,7 +17,7 @@ export default class BjcpPlugin extends Plugin {
         }
 
         if (/^Articles\//.test(sourcePath)) {
-        componentToRender = this.renderArticleFrontMatter(frontmatter);
+          componentToRender = this.renderArticleFrontMatter(frontmatter);
         }
 
         const frontMatterFancy = document.createElement('div');
@@ -51,6 +51,7 @@ export default class BjcpPlugin extends Plugin {
         author={frontmatter.author}
         publication={frontmatter.publication}
         source={frontmatter.source}
+        sourceUrl={frontmatter.source_url}
         issue={frontmatter.issue}
       />
     );

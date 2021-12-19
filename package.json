@@ -1,6 +1,6 @@
 {
 	"name": "brewing-frontmatter-plugin",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"description": "Plugin for Obsidian to apply templates to Markdown frontmatter and render them in my brewing notes vault.",
 	"main": "main.js",
 	"scripts": {

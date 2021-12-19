@@ -3,5 +3,6 @@ export type ArticleFrontMatterProps = {
   author?: string;
   publication?: string;
   source?: string;
+  sourceUrl?: string;
   issue?: string;
 };

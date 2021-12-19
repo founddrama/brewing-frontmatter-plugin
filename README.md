@@ -1,68 +1,36 @@
-## Obsidian Sample Plugin
+## Brewing Frontmatter Plugin
 
-This is a sample plugin for Obsidian (https://obsidian.md).
+This is a plugin for my beer/mead/cider brewing notes as kept in
+[Obsidian](https://obsidian.md). The general idea is to use the structured data
+of the Markdown frontmatter (i.e., the [YAML](https://yaml.org/)) to render the
+"top-most part" of certain pages in the compiled notes.
 
-This project uses Typescript to provide type checking and documentation.
-The repo depends on the latest plugin API (obsidian.d.ts) in Typescript Definition format, which contains TSDoc comments describing what it does.
+**In other words: part of the _rendered page_ should come from the _data_ and
+not just the notes.**
 
-**Note:** The Obsidian API is still in early alpha and is subject to change at any time!
+### How do I do a dev?
 
-This sample plugin demonstrates some of the basic functionality the plugin API can do.
-- Changes the default font color to red using `styles.css`.
-- Adds a ribbon icon, which shows a Notice when clicked.
-- Adds a command "Open Sample Modal" which opens a Modal.
-- Adds a plugin setting tab to the settings page.
-- Registers a global click event and output 'click' to the console.
-- Registers a global interval which logs 'setInterval' to the console.
-
-### First time developing plugins?
-
-Quick starting guide for new plugin devs:
-
-- Make a copy of this repo as a template with the "Use this template" button (login to GitHub if you don't see it).
-- Clone your repo to a local development folder. For convenience, you can place this folder in your `.obsidian/plugins/your-plugin-name` folder.
-- Install NodeJS, then run `npm i` in the command line under your repo folder.
-- Run `npm run dev` to compile your plugin from `main.ts` to `main.js`.
-- Make changes to `main.ts` (or create new `.ts` files). Those changes should be automatically compiled into `main.js`.
+- Clone the repo to a local development folder. For convenience, you can place
+  the folder in the `.obsidian/plugins/your-plugin-name` folder for the relevant
+  notes vault.
+- In the cloned repo, run `npm install`.
+- Run `npm run dev` to compile your plugin from `main.tsx` to `main.js`.
+- Make changes to `main.tsx` (or the modules it imports). Those changes should
+  be automatically compiled into `main.js`.
 - Reload Obsidian to load the new version of your plugin.
 - Enable plugin in settings window.
-- For updates to the Obsidian API run `npm update` in the command line under your repo folder.
+- For updates to the Obsidian API run `npm update` in the command line under
+  your repo folder.
 
-### Releasing new releases
+### What's the general architecture of this thing?
 
-- Update your `manifest.json` with your new version number, such as `1.0.1`, and the minimum Obsidian version required for your latest release.
-- Update your `versions.json` file with `"new-plugin-version": "minimum-obsidian-version"` so older versions of Obsidian can download an older version of your plugin that's compatible.
-- Create new GitHub release using your new version number as the "Tag version". Use the exact version number, don't include a prefix `v`. See here for an example: https://github.com/obsidianmd/obsidian-sample-plugin/releases
-- Upload the files `manifest.json`, `main.js`, `styles.css` as binary attachments. Note: The manifest.json file must be in two places, first the root path of your repository and also in the release.
-- Publish the release.
+A little bit ad-hoc but...
 
-### Adding your plugin to the community plugin list
-
-- Publish an initial version.
-- Make sure you have a `README.md` file in the root of your repo.
-- Make a pull request at https://github.com/obsidianmd/obsidian-releases to add your plugin.
-
-### How to use
-
-- Clone this repo.
-- `npm i` or `yarn` to install dependencies
-- `npm run dev` to start compilation in watch mode.
-
-### Manually installing the plugin
-
-- Copy over `main.js`, `styles.css`, `manifest.json` to your vault `VaultFolder/.obsidian/plugins/your-plugin-id/`.
-
-### Improve code quality with eslint (optional)
-- [ESLint](https://eslint.org/) is a tool that analyzes your code to quickly find problems. You can run ESLint against your plugin to find common bugs and ways to improve your code. 
-- To use eslint with this project, make sure to install eslint from terminal:
-  - `npm install -g eslint`
-- To use eslint to analyze this project use this command:
-  - `eslint main.ts`
-  - eslint will then create a report with suggestions for code improvement by file and line number.
-- If your source code is in a folder, such as `src`, you can use eslint with this command to analyze all files in that folder:
-  - `eslint .\src\`
-
-
-### API Documentation
-
-See https://github.com/obsidianmd/obsidian-api
+- **Fact:** Certain types of notes (e.g., BJCP styles, brewing-related
+  articles, homebrew recipes) are going to have predictable frontmatter
+- **Assertion:** We want to use that frontmatter to generate part of the
+  rendered viewable content for that Markdown document.
+- **Assumption:** By placing certain types of notes into specific paths within
+  the Obsidian Vault, we can use the `sourcePath` to tell use what _type of note_
+  it is and therefore _which template to apply_ so as to consume the correct
+  key/value pairs from the front matter.
