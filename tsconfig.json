@@ -14,9 +14,13 @@
       "ES5",
       "ES6",
       "ES7"
-    ]
+    ],
+    "jsx": "react-jsx",
+    "allowSyntheticDefaultImports": true
   },
   "include": [
-    "**/*.ts"
+    "**/*.ts",
+    "src",
+    "main.tsx"
   ]
 }
