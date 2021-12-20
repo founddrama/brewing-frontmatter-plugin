@@ -45,13 +45,13 @@ export default class BjcpPlugin extends Plugin {
   }
 
   renderArticleFrontMatter(frontmatter: any) {
+    const { source, source_url } = frontmatter;
     return (
       <ArticleFrontMatter
         title={frontmatter.title}
         author={frontmatter.author}
         publication={frontmatter.publication}
-        source={frontmatter.source}
-        sourceUrl={frontmatter.source_url}
+        source={source || source_url}
         issue={frontmatter.issue}
       />
     );
