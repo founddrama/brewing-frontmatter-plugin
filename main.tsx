@@ -13,7 +13,7 @@ export default class BjcpPlugin extends Plugin {
       if (ctx.getSectionInfo(el).lineStart === 0 && !!frontmatter) {
         let componentToRender;
         if (/^BJCP\/(?:Beer|Mead|Cider) Styles/.test(sourcePath)) {
-          if (/\d{1,2}[A-Z]\d?\. [\w-\s]+\.md$/.test(sourcePath)) {
+          if (/\d{1,2}[A-Z]\d?\. [\w-\söäè]+\.md$/.test(sourcePath)) {
             componentToRender = this.renderBjcpStyleFrontMatter(frontmatter);
           } else if (/\d{1,2}\. [\w-\s]+\.md$/.test(sourcePath)) {
             componentToRender = this.renderBjcpCategoryFrontMatter(frontmatter);
