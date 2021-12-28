@@ -1,19 +1,23 @@
 import { Plugin, MarkdownPostProcessorContext } from 'obsidian';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import BjcpCategoryFrontMatter from './src/frontmatter-templates/BjcpCategoryFrontMatter';
 import BjcpStyleFrontMatter from './src/frontmatter-templates/BjcpStyleFrontMatter';
 import ArticleFrontMatter from 'src/frontmatter-templates/ArticleFrontMatter';
 
 export default class BjcpPlugin extends Plugin {
   async onload() {
     this.registerMarkdownPostProcessor((el: HTMLElement, ctx: MarkdownPostProcessorContext) => {
-      console.log('MarkdownPostProcessorContext => ', ctx);
       const { frontmatter, sourcePath } = ctx;
 
       if (ctx.getSectionInfo(el).lineStart === 0 && !!frontmatter) {
         let componentToRender;
         if (/^BJCP\/(?:Beer|Mead|Cider) Styles/.test(sourcePath)) {
-          componentToRender = this.renderBjcpStyleFrontMatter(frontmatter);
+          if (/\d{1,2}[A-Z]\d?\. [\w-\s]+\.md$/.test(sourcePath)) {
+            componentToRender = this.renderBjcpStyleFrontMatter(frontmatter);
+          } else if (/\d{1,2}\. [\w-\s]+\.md$/.test(sourcePath)) {
+            componentToRender = this.renderBjcpCategoryFrontMatter(frontmatter);
+          }
         }
 
         if (/^Articles\//.test(sourcePath)) {
@@ -30,6 +34,17 @@ export default class BjcpPlugin extends Plugin {
         );
       }
     });
+  }
+
+  renderBjcpCategoryFrontMatter(frontmatter: any): JSX.Element {
+    return (
+      <BjcpCategoryFrontMatter
+        type={frontmatter.type}
+        category={frontmatter.category}
+        categoryName={frontmatter.category_name}
+        styles={frontmatter.styles}
+      />
+    );
   }
 
   renderBjcpStyleFrontMatter(frontmatter: any): JSX.Element {
