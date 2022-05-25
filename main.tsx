@@ -10,7 +10,7 @@ export default class BjcpPlugin extends Plugin {
     this.registerMarkdownPostProcessor((el: HTMLElement, ctx: MarkdownPostProcessorContext) => {
       const { frontmatter, sourcePath } = ctx;
 
-      if (ctx.getSectionInfo(el).lineStart === 0 && !!frontmatter) {
+      if (ctx.getSectionInfo(el)?.lineStart === 0 && !!frontmatter) {
         let componentToRender;
         if (/^BJCP\/(?:Beer|Mead|Cider) Styles/.test(sourcePath)) {
           if (/\d{1,2}[A-Z]\d?\. [\w-\söäè]+\.md$/.test(sourcePath)) {
